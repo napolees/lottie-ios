@@ -229,7 +229,8 @@
                                                                                        @"position" : _transform.position,
                                                                                        @"anchorPoint" : _transform.anchor,
                                                                                        @"transform" : _transform.scale,
-                                                                                       @"sublayerTransform.rotation" : _transform.rotation}];
+                                                                                       @"sublayerTransform.rotation" : _transform.rotation}
+                                                                           startProgress:self.startProgress];
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
   
@@ -245,7 +246,8 @@
       properties[@"trimEnd"] = _trim.end;
       properties[@"trimOffset"] = _trim.offset;
     }
-    _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties];
+    _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties
+                                                                                 startProgress:self.startProgress];
     [_strokeLayer addAnimation:_strokeAnimation forKey:@""];
   }
   
@@ -254,7 +256,8 @@
                                                                                            @"opacity" : _fill.opacity,
                                                                                            @"rectSize" : _rectangle.size,
                                                                                            @"rectPosition" : _rectangle.position,
-                                                                                           @"rectCornerRadius" : _rectangle.cornerRadius}];
+                                                                                           @"rectCornerRadius" : _rectangle.cornerRadius}
+                                                                               startProgress:self.startProgress];
     [_fillLayer addAnimation:_fillAnimation forKey:@""];
   }
 }

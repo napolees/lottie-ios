@@ -34,7 +34,8 @@
     maskLayer.opacity = mask.opacity.initialValue.floatValue;
     [self addSublayer:maskLayer];
     CAAnimationGroup *animGroup = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:@{@"opacity" : mask.opacity,
-                                                                                                        @"path" : mask.maskPath}];
+                                                                                                        @"path" : mask.maskPath}
+                                                                                            startProgress:self.startProgress];
     if (animGroup) {
       [maskLayer addAnimation:animGroup forKey:@""];
     }

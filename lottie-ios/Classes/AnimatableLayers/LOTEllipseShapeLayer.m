@@ -195,7 +195,8 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
                                                                                        @"position" : _transform.position,
                                                                                        @"anchorPoint" : _transform.anchor,
                                                                                        @"transform" : _transform.scale,
-                                                                                       @"sublayerTransform.rotation" : _transform.rotation}];
+                                                                                       @"sublayerTransform.rotation" : _transform.rotation}
+                                                                           startProgress:self.startProgress];
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
   
@@ -210,7 +211,8 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
       properties[@"trimEnd"] = _trim.end;
       properties[@"trimOffset"] = _trim.offset;
     }
-    _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties];
+    _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties
+                                                                                 startProgress:self.startProgress];
     [_strokeLayer addAnimation:_strokeAnimation forKey:@""];
     
   }
@@ -219,7 +221,8 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
     _fillAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:@{@"fillColor" : _fill.color,
                                                                                            @"opacity" : _fill.opacity,
                                                                                            @"circlePosition" : _circle.position,
-                                                                                           @"circleSize" : _circle.size}];
+                                                                                           @"circleSize" : _circle.size}
+                                                                               startProgress:self.startProgress];
     [_fillLayer addAnimation:_fillAnimation forKey:@""];
   }
 }

@@ -33,18 +33,20 @@
 
 - (instancetype)initWithLayerGroup:(LOTLayerGroup *)layerGroup
                     withAssetGroup:(LOTAssetGroup *)assetGroup
+                 withStartProgress:(NSTimeInterval)startProgress
                         withBounds:(CGRect)bounds
                           inBundle:(NSBundle *)bundle{
   self = [super init];
   if (self) {
     self.masksToBounds = YES;
-    [self _setupWithLayerGroup:layerGroup withAssetGroup:assetGroup withBounds:bounds inBundle:bundle];
+    [self _setupWithLayerGroup:layerGroup withAssetGroup:assetGroup withStartProgress:startProgress withBounds:bounds inBundle:bundle];
   }
   return self;
 }
 
 - (void)_setupWithLayerGroup:(LOTLayerGroup *)layerGroup
               withAssetGroup:(LOTAssetGroup *)assetGroup
+           withStartProgress:(NSTimeInterval)startProgress
                   withBounds:(CGRect)bounds
                     inBundle:(NSBundle *)bundle
                {
@@ -80,11 +82,12 @@
       asset = [assetGroup assetModelForID:layer.referenceID];
     }
     
-    LOTLayerView *layerView = [[LOTLayerView alloc] initWithModel:layer inLayerGroup:layerGroup inBundle:bundle];
+      LOTLayerView *layerView = [[LOTLayerView alloc] initWithModel:layer startProgress:startProgress inLayerGroup:layerGroup inBundle:bundle];
     
     if (asset.layerGroup) {
       LOTCompositionLayer *precompLayer = [[LOTCompositionLayer alloc] initWithLayerGroup:asset.layerGroup
                                                                            withAssetGroup:assetGroup
+                                                                        withStartProgress:startProgress
                                                                                withBounds:layer.layerBounds
                                                                                  inBundle:bundle];
       precompLayer.frame = layer.layerBounds;

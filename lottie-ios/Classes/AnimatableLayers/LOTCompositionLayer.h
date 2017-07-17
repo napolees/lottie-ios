@@ -16,6 +16,7 @@
 
 - (instancetype)initWithLayerGroup:(LOTLayerGroup *)layerGroup
                     withAssetGroup:(LOTAssetGroup *)assetGroup
+                 withStartProgress:(NSTimeInterval)startProgress
                         withBounds:(CGRect)bounds
                           inBundle:(NSBundle *)bundle;
 

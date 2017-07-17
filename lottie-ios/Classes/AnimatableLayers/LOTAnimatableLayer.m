@@ -11,9 +11,14 @@
 @implementation LOTAnimatableLayer
 
 - (instancetype)initWithLayerDuration:(NSTimeInterval)duration {
+    return [self initWithLayerDuration:duration startProgress:0];
+}
+
+- (instancetype)initWithLayerDuration:(NSTimeInterval)duration startProgress:(NSTimeInterval)startProgress {
   self = [super init];
   if (self) {
     _layerDuration = duration;
+    _startProgress = startProgress;
   }
   return self;
 }

@@ -22,7 +22,8 @@
                               fill:(LOTShapeFill *)previousFill
                             stroke:(LOTShapeStroke *)previousStroke
                           trimPath:(LOTShapeTrimPath *)previousTrimPath
-                      withLayerDuration:(NSTimeInterval)duration;
+                 withLayerDuration:(NSTimeInterval)duration
+                     startProgress:(NSTimeInterval)startProgress;
 
 @property (nonatomic, readonly) LOTShapeGroup *shapeGroup;
 @property (nonatomic, readonly) LOTShapeTransform *shapeTransform;

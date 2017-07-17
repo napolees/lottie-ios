@@ -77,7 +77,8 @@
     [keypaths setValue:_parentModel.positionY forKey:@"position.y"];
   }
 
-  _animation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:keypaths];
+  _animation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:keypaths
+                                                                         startProgress:self.startProgress];
   [self addAnimation:_animation forKey:@"LottieAnimation"];
 }
 
@@ -96,11 +97,11 @@
 }
 
 - (instancetype)initWithModel:(LOTLayer *)model inLayerGroup:(LOTLayerGroup *)layerGroup{
-    return [self initWithModel:model inLayerGroup:layerGroup inBundle:[NSBundle mainBundle]];
+    return [self initWithModel:model startProgress:0 inLayerGroup:layerGroup inBundle:[NSBundle mainBundle]];
 }
 
-- (instancetype)initWithModel:(LOTLayer *)model inLayerGroup:(LOTLayerGroup *)layerGroup inBundle:(NSBundle *)bundle{
-  self = [super initWithLayerDuration:model.layerDuration];
+- (instancetype)initWithModel:(LOTLayer *)model startProgress:(NSTimeInterval)startProgress inLayerGroup:(LOTLayerGroup *)layerGroup inBundle:(NSBundle *)bundle{
+  self = [super initWithLayerDuration:model.layerDuration startProgress:startProgress];
   if (self) {
     _bundle = bundle;
     _layerModel = model;
@@ -183,21 +184,23 @@
   for (id item in reversedItems) {
     if ([item isKindOfClass:[LOTShapeGroup class]]) {
       LOTGroupLayerView *groupLayer = [[LOTGroupLayerView alloc] initWithShapeGroup:(LOTShapeGroup *)item
-                                                                        transform:currentTransform
-                                                                             fill:currentFill
-                                                                           stroke:currentStroke
-                                                                         trimPath:currentTrimPath
-                                                                     withLayerDuration:self.layerDuration];
+                                                                          transform:currentTransform
+                                                                               fill:currentFill
+                                                                             stroke:currentStroke
+                                                                           trimPath:currentTrimPath
+                                                                  withLayerDuration:self.layerDuration
+                                                                      startProgress:self.startProgress];
       [_childContainerLayer addSublayer:groupLayer];
       [shapeLayers addObject:groupLayer];
     } else if ([item isKindOfClass:[LOTShapePath class]]) {
       LOTShapePath *shapePath = (LOTShapePath *)item;
       LOTShapeLayerView *shapeLayer = [[LOTShapeLayerView alloc] initWithShape:shapePath
-                                                                        fill:currentFill
-                                                                      stroke:currentStroke
-                                                                        trim:currentTrimPath
-                                                                   transform:currentTransform
-                                                                withLayerDuration:self.layerDuration];
+                                                                          fill:currentFill
+                                                                        stroke:currentStroke
+                                                                          trim:currentTrimPath
+                                                                     transform:currentTransform
+                                                             withLayerDuration:self.layerDuration
+                                                                 startProgress:self.startProgress];
       [shapeLayers addObject:shapeLayer];
       [_childContainerLayer addSublayer:shapeLayer];
     } else if ([item isKindOfClass:[LOTShapeRectangle class]]) {
@@ -273,7 +276,8 @@
   }
   
   
-  _animation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:keypaths];
+  _animation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:keypaths
+                                                                         startProgress:self.startProgress];
   
   if (_animation) {
     [_childContainerLayer addAnimation:_animation forKey:@"LottieAnimation"];

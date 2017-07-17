@@ -24,8 +24,9 @@
                               fill:(LOTShapeFill *)previousFill
                             stroke:(LOTShapeStroke *)previousStroke
                           trimPath:(LOTShapeTrimPath *)previousTrimPath
-                      withLayerDuration:(NSTimeInterval)duration {
-  self = [super initWithLayerDuration:duration];
+                 withLayerDuration:(NSTimeInterval)duration
+                     startProgress:(NSTimeInterval)startProgress {
+  self = [super initWithLayerDuration:duration startProgress:startProgress];
   if (self) {
     _shapeGroup = shapeGroup;
     _shapeTransform = previousTransform;
@@ -69,11 +70,12 @@
     } else if ([item isKindOfClass:[LOTShapePath class]]) {
       LOTShapePath *shapePath = (LOTShapePath *)item;
       LOTShapeLayerView *shapeLayer = [[LOTShapeLayerView alloc] initWithShape:shapePath
-                                                                        fill:currentFill
-                                                                      stroke:currentStroke
-                                                                        trim:currentTrim
-                                                                   transform:currentTransform
-                                                                withLayerDuration:self.layerDuration];
+                                                                          fill:currentFill
+                                                                        stroke:currentStroke
+                                                                          trim:currentTrim
+                                                                     transform:currentTransform
+                                                             withLayerDuration:self.layerDuration
+                                                                 startProgress:self.startProgress];
       [shapeLayers addObject:shapeLayer];
       [self addSublayer:shapeLayer];
     } else if ([item isKindOfClass:[LOTShapeRectangle class]]) {
@@ -89,21 +91,22 @@
     }  else if ([item isKindOfClass:[LOTShapeCircle class]]) {
       LOTShapeCircle *shapeCircle = (LOTShapeCircle *)item;
       LOTEllipseShapeLayer *shapeLayer = [[LOTEllipseShapeLayer alloc] initWithEllipseShape:shapeCircle
-                                                                                     fill:currentFill
-                                                                                   stroke:currentStroke
-                                                                                     trim:currentTrim
-                                                                                transform:currentTransform
-                                                                             withLayerDuration:self.layerDuration];
+                                                                                       fill:currentFill
+                                                                                     stroke:currentStroke
+                                                                                       trim:currentTrim
+                                                                                  transform:currentTransform
+                                                                          withLayerDuration:self.layerDuration];
       [shapeLayers addObject:shapeLayer];
       [self addSublayer:shapeLayer];
     } else if ([item isKindOfClass:[LOTShapeGroup class]]) {
       LOTShapeGroup *shapeGroup = (LOTShapeGroup *)item;
       LOTGroupLayerView *groupLayer = [[LOTGroupLayerView alloc] initWithShapeGroup:shapeGroup
-                                                                        transform:currentTransform
-                                                                             fill:currentFill
-                                                                           stroke:currentStroke
-                                                                         trimPath:currentTrim
-                                                                     withLayerDuration:self.layerDuration];
+                                                                          transform:currentTransform
+                                                                               fill:currentFill
+                                                                             stroke:currentStroke
+                                                                           trimPath:currentTrim
+                                                                  withLayerDuration:self.layerDuration
+                                                                      startProgress:self.startProgress];
       [groupLayers addObject:groupLayer];
       [self addSublayer:groupLayer];
     }
@@ -120,7 +123,8 @@
                                                                                        @"position" : _shapeTransform.position,
                                                                                        @"anchorPoint" : _shapeTransform.anchor,
                                                                                        @"transform" : _shapeTransform.scale,
-                                                                                       @"sublayerTransform.rotation" : _shapeTransform.rotation}];
+                                                                                       @"sublayerTransform.rotation" : _shapeTransform.rotation}
+                                                                           startProgress:self.startProgress];
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
 }

@@ -11,6 +11,6 @@
 
 @interface CAAnimationGroup (LOTAnimatableGroup)
 
-+ (nullable CAAnimationGroup *)LOT_animationGroupForAnimatablePropertiesWithKeyPaths:(nonnull NSDictionary<NSString *, id<LOTAnimatableValue>> *)properties;
++ (nullable CAAnimationGroup *)LOT_animationGroupForAnimatablePropertiesWithKeyPaths:(nonnull NSDictionary<NSString *, id<LOTAnimatableValue>> *)properties startProgress:(NSTimeInterval)startProgress;
 
 @end

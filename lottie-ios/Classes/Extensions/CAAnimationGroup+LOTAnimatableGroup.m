@@ -10,7 +10,7 @@
 
 @implementation CAAnimationGroup (LOTAnimatableGroup)
 
-+ (nullable CAAnimationGroup *)LOT_animationGroupForAnimatablePropertiesWithKeyPaths:(nonnull NSDictionary<NSString *, id<LOTAnimatableValue>> *)properties {
++ (nullable CAAnimationGroup *)LOT_animationGroupForAnimatablePropertiesWithKeyPaths:(nonnull NSDictionary<NSString *, id<LOTAnimatableValue>> *)properties startProgress:(NSTimeInterval)startProgress {
   NSMutableArray *animations = [NSMutableArray array];
   NSTimeInterval animduration = 0;
   for (NSString *keyPath in properties.allKeys) {
@@ -30,7 +30,9 @@
     animation.animations = animations;
     animation.duration = animduration;
     animation.fillMode = kCAFillModeForwards;
+    animation.timeOffset = startProgress;
     animation.removedOnCompletion = NO;
+    animation.timeOffset = startProgress;
     return animation;
   }
   return nil;

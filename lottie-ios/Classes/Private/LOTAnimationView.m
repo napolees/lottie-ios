@@ -367,6 +367,7 @@
     }
     _compLayer = [[LOTCompositionLayer alloc] initWithLayerGroup:_sceneModel.layerGroup
                                                   withAssetGroup:_sceneModel.assetGroup
+                                               withStartProgress:_sceneModel.startFrame.doubleValue / _sceneModel.framerate.doubleValue
                                                       withBounds:_sceneModel.compBounds
                                                         inBundle:_bundle];
     [_timingLayer addSublayer:_compLayer];
