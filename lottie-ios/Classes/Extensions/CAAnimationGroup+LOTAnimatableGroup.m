@@ -30,7 +30,6 @@
     animation.animations = animations;
     animation.duration = animduration;
     animation.fillMode = kCAFillModeForwards;
-    animation.timeOffset = startProgress;
     animation.removedOnCompletion = NO;
     animation.timeOffset = startProgress;
     return animation;
