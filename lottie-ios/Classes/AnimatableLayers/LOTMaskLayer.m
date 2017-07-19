@@ -14,8 +14,8 @@
   NSArray *_maskLayers;
 }
 
-- (instancetype)initWithMasks:(NSArray<LOTMask *> *)masks inLayer:(LOTLayer *)layer {
-  self = [super initWithLayerDuration:layer.layerDuration];
+- (instancetype)initWithMasks:(NSArray<LOTMask *> *)masks inLayer:(LOTLayer *)layer startProgress:(NSTimeInterval)startProgress {
+  self = [super initWithLayerDuration:layer.layerDuration startProgress:startProgress];
   if (self) {
     _masks = masks;
     _layer = layer;
@@ -35,7 +35,8 @@
     [self addSublayer:maskLayer];
     CAAnimationGroup *animGroup = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:@{@"opacity" : mask.opacity,
                                                                                                         @"path" : mask.maskPath}
-                                                                                            startProgress:self.startProgress];
+                                                                                            startProgress:self.startProgress
+                                                                                                 duration:self.layerDuration];
     if (animGroup) {
       [maskLayer addAnimation:animGroup forKey:@""];
     }

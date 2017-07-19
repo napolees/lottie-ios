@@ -85,7 +85,8 @@
                                                                             stroke:currentStroke
                                                                               trim:currentTrim
                                                                          transform:currentTransform
-                                                                      withLayerDuration:self.layerDuration];
+                                                                 withLayerDuration:self.layerDuration
+                                                                     startProgress:self.startProgress];
       [shapeLayers addObject:shapeLayer];
       [self addSublayer:shapeLayer];
     }  else if ([item isKindOfClass:[LOTShapeCircle class]]) {
@@ -95,7 +96,8 @@
                                                                                      stroke:currentStroke
                                                                                        trim:currentTrim
                                                                                   transform:currentTransform
-                                                                          withLayerDuration:self.layerDuration];
+                                                                          withLayerDuration:self.layerDuration
+                                                                              startProgress:self.startProgress];
       [shapeLayers addObject:shapeLayer];
       [self addSublayer:shapeLayer];
     } else if ([item isKindOfClass:[LOTShapeGroup class]]) {
@@ -124,7 +126,8 @@
                                                                                        @"anchorPoint" : _shapeTransform.anchor,
                                                                                        @"transform" : _shapeTransform.scale,
                                                                                        @"sublayerTransform.rotation" : _shapeTransform.rotation}
-                                                                           startProgress:self.startProgress];
+                                                                           startProgress:self.startProgress
+                                                                                duration:self.layerDuration];
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
 }

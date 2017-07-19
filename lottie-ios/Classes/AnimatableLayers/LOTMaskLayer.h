@@ -11,7 +11,7 @@
 
 @interface LOTMaskLayer : LOTAnimatableLayer
 
-- (instancetype)initWithMasks:(NSArray<LOTMask *> *)masks inLayer:(LOTLayer *)layer;
+- (instancetype)initWithMasks:(NSArray<LOTMask *> *)masks inLayer:(LOTLayer *)layer startProgress:(NSTimeInterval)startProgress;
 
 @property (nonatomic, readonly) NSArray<LOTMask *> *masks;
 

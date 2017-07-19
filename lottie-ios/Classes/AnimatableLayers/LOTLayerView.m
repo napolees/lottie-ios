@@ -17,7 +17,7 @@
 
 @interface LOTParentLayer : LOTAnimatableLayer
 
-- (instancetype)initWithParentModel:(LOTLayer *)parent;
+- (instancetype)initWithParentModel:(LOTLayer *)parent startProgress:(NSTimeInterval)startProgress;
 
 @end
 
@@ -26,8 +26,8 @@
   CAAnimationGroup *_animation;
 }
 
-- (instancetype)initWithParentModel:(LOTLayer *)parent {
-  self = [super initWithLayerDuration:parent.layerDuration];
+- (instancetype)initWithParentModel:(LOTLayer *)parent startProgress:(NSTimeInterval)startProgress {
+  self = [super initWithLayerDuration:parent.layerDuration startProgress:startProgress];
   if (self) {
     self.bounds = parent.layerBounds;
     _parentModel = parent;
@@ -78,7 +78,8 @@
   }
 
   _animation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:keypaths
-                                                                         startProgress:self.startProgress];
+                                                                         startProgress:self.startProgress
+                                                                              duration:self.layerDuration];
   [self addAnimation:_animation forKey:@"LottieAnimation"];
 }
 
@@ -141,7 +142,7 @@
   if (parentID) {
     while (parentID != nil) {
       LOTLayer *parentModel = [layersGroup layerModelForID:parentID];
-      LOTParentLayer *parentLayer = [[LOTParentLayer alloc] initWithParentModel:parentModel];
+      LOTParentLayer *parentLayer = [[LOTParentLayer alloc] initWithParentModel:parentModel startProgress:self.startProgress];
       [parentLayer addSublayer:currentChild];
       [parentLayers addObject:parentLayer];
       currentChild = parentLayer;
@@ -210,17 +211,19 @@
                                                                             stroke:currentStroke
                                                                               trim:currentTrimPath
                                                                          transform:currentTransform
-                                                                    withLayerDuration:self.layerDuration];
+                                                                 withLayerDuration:self.layerDuration
+                                                                     startProgress:self.startProgress];
       [shapeLayers addObject:shapeLayer];
       [_childContainerLayer addSublayer:shapeLayer];
     }  else if ([item isKindOfClass:[LOTShapeCircle class]]) {
       LOTShapeCircle *shapeCircle = (LOTShapeCircle *)item;
       LOTEllipseShapeLayer *shapeLayer = [[LOTEllipseShapeLayer alloc] initWithEllipseShape:shapeCircle
-                                                                                     fill:currentFill
-                                                                                   stroke:currentStroke
-                                                                                     trim:currentTrimPath
-                                                                                transform:currentTransform
-                                                                             withLayerDuration:self.layerDuration];
+                                                                                       fill:currentFill
+                                                                                     stroke:currentStroke
+                                                                                       trim:currentTrimPath
+                                                                                  transform:currentTransform
+                                                                          withLayerDuration:self.layerDuration
+                                                                              startProgress:self.startProgress];
       [shapeLayers addObject:shapeLayer];
       [_childContainerLayer addSublayer:shapeLayer];
     } else if ([item isKindOfClass:[LOTShapeTransform class]]) {
@@ -237,7 +240,7 @@
   _shapeLayers = shapeLayers;
   
   if (_layerModel.masks) {
-    _maskLayer = [[LOTMaskLayer alloc] initWithMasks:_layerModel.masks inLayer:_layerModel];
+    _maskLayer = [[LOTMaskLayer alloc] initWithMasks:_layerModel.masks inLayer:_layerModel startProgress:self.startProgress];
     _childContainerLayer.mask = _maskLayer;
   }
   
@@ -277,7 +280,9 @@
   
   
   _animation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:keypaths
-                                                                         startProgress:self.startProgress];
+                                                                         startProgress:self.startProgress
+                                                                              duration:self.layerDuration];
+    _animation.duration = _layerModel.layerDuration;
   
   if (_animation) {
     [_childContainerLayer addAnimation:_animation forKey:@"LottieAnimation"];

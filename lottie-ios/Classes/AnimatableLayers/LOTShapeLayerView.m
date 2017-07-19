@@ -101,7 +101,8 @@
                                                                                        @"anchorPoint" : _transform.anchor,
                                                                                        @"transform" : _transform.scale,
                                                                                        @"sublayerTransform.rotation" : _transform.rotation}
-                                                                           startProgress:self.startProgress];
+                                                                           startProgress:self.startProgress
+                                                                                duration:self.layerDuration];
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
   
@@ -116,7 +117,8 @@
       properties[@"trimOffset"] = _trim.offset;
     }
     _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties
-                                                                                 startProgress:self.startProgress];
+                                                                                 startProgress:self.startProgress
+                                                                                      duration:self.layerDuration];
     [_strokeLayer addAnimation:_strokeAnimation forKey:@""];
   }
   
@@ -124,7 +126,8 @@
     _fillAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:@{@"fillColor" : _fill.color,
                                                                                            @"opacity" : _fill.opacity,
                                                                                            @"path" : _path.shapePath}
-                                                                               startProgress:self.startProgress];
+                                                                               startProgress:self.startProgress
+                                                                                    duration:self.layerDuration];
     [_fillLayer addAnimation:_fillAnimation forKey:@""];
   }
 }

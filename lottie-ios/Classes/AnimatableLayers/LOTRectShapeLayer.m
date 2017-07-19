@@ -155,8 +155,9 @@
                            stroke:(LOTShapeStroke *)stroke
                              trim:(LOTShapeTrimPath *)trim
                         transform:(LOTShapeTransform *)transform
-                     withLayerDuration:(NSTimeInterval)duration {
-  self = [super initWithLayerDuration:duration];
+                withLayerDuration:(NSTimeInterval)duration
+                    startProgress:(NSTimeInterval)startProgress {
+  self = [super initWithLayerDuration:duration startProgress:startProgress];
   if (self) {
     _rectangle = rectShape;
     _stroke = stroke;
@@ -230,7 +231,8 @@
                                                                                        @"anchorPoint" : _transform.anchor,
                                                                                        @"transform" : _transform.scale,
                                                                                        @"sublayerTransform.rotation" : _transform.rotation}
-                                                                           startProgress:self.startProgress];
+                                                                           startProgress:self.startProgress
+                                                                                duration:self.layerDuration];
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
   
@@ -247,7 +249,8 @@
       properties[@"trimOffset"] = _trim.offset;
     }
     _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties
-                                                                                 startProgress:self.startProgress];
+                                                                                 startProgress:self.startProgress
+                                                                                      duration:self.layerDuration];
     [_strokeLayer addAnimation:_strokeAnimation forKey:@""];
   }
   
@@ -257,7 +260,8 @@
                                                                                            @"rectSize" : _rectangle.size,
                                                                                            @"rectPosition" : _rectangle.position,
                                                                                            @"rectCornerRadius" : _rectangle.cornerRadius}
-                                                                               startProgress:self.startProgress];
+                                                                               startProgress:self.startProgress
+                                                                                    duration:self.layerDuration];
     [_fillLayer addAnimation:_fillAnimation forKey:@""];
   }
 }

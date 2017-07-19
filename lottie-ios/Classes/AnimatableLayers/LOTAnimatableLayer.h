@@ -11,7 +11,6 @@
 @interface LOTAnimatableLayer : CALayer
 
 - (instancetype)initWithLayerDuration:(NSTimeInterval)duration startProgress:(NSTimeInterval)startProgress NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithLayerDuration:(NSTimeInterval)duration NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly) NSTimeInterval layerDuration;
 @property (nonatomic, readonly) NSTimeInterval startProgress;

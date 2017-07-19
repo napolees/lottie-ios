@@ -123,8 +123,9 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
                               stroke:(LOTShapeStroke *)stroke
                                 trim:(LOTShapeTrimPath *)trim
                            transform:(LOTShapeTransform *)transform
-                        withLayerDuration:(NSTimeInterval)duration {
-  self = [super initWithLayerDuration:duration];
+                   withLayerDuration:(NSTimeInterval)duration
+                       startProgress:(NSTimeInterval)startProgress {
+  self = [super initWithLayerDuration:duration startProgress:startProgress];
   if (self) {
     _circle = circleShape;
     _stroke = stroke;
@@ -196,7 +197,9 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
                                                                                        @"anchorPoint" : _transform.anchor,
                                                                                        @"transform" : _transform.scale,
                                                                                        @"sublayerTransform.rotation" : _transform.rotation}
-                                                                           startProgress:self.startProgress];
+                                                                           startProgress:self.startProgress
+                                                                                duration:self.layerDuration];
+      _animation.duration = self.layerDuration;
     [self addAnimation:_animation forKey:@"LottieAnimation"];
   }
   
@@ -212,7 +215,8 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
       properties[@"trimOffset"] = _trim.offset;
     }
     _strokeAnimation = [CAAnimationGroup LOT_animationGroupForAnimatablePropertiesWithKeyPaths:properties
-                                                                                 startProgress:self.startProgress];
+                                                                                 startProgress:self.startProgress
+                                                                                      duration:self.layerDuration];
     [_strokeLayer addAnimation:_strokeAnimation forKey:@""];
     
   }
@@ -222,7 +226,8 @@ const CGFloat kEllipseControlPointPercentage = 0.55228;
                                                                                            @"opacity" : _fill.opacity,
                                                                                            @"circlePosition" : _circle.position,
                                                                                            @"circleSize" : _circle.size}
-                                                                               startProgress:self.startProgress];
+                                                                               startProgress:self.startProgress
+                                                                                    duration:self.layerDuration];
     [_fillLayer addAnimation:_fillAnimation forKey:@""];
   }
 }
