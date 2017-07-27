@@ -16,7 +16,7 @@ typedef enum : NSUInteger {
 
 @interface LOTAnimationState : NSObject
 
-- (instancetype _Nonnull)initWithDuration:(CGFloat)duration layer:(CALayer * _Nullable)layer frameRate:(NSNumber * _Nullable)framerate;
+- (instancetype _Nonnull)initWithDuration:(CGFloat)duration layer:(CALayer * _Nullable)layer frameRate:(NSNumber * _Nullable)framerate startFrame:(NSNumber * _Nullable)startFrame;
 
 - (void)setAnimationIsPlaying:(BOOL)animationIsPlaying;
 - (void)setAnimationDoesLoop:(BOOL)loopAnimation updateAnimation:(BOOL)updateAnimation;
